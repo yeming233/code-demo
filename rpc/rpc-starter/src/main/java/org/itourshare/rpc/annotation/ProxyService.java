@@ -6,7 +6,7 @@ import java.lang.annotation.*;
 
 /**
  * @ClassName : RpcService
- * @Description :
+ * @Description : 注释代理类，用于远程调用。
  * @Author : its
  * @Date: 2020-08-19 16:10
  */

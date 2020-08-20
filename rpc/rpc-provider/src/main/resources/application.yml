@@ -1,2 +1,5 @@
 server:
   port: 8082
+rpc:
+  address: 118.24.129.122:2222
+  server-port: 19999

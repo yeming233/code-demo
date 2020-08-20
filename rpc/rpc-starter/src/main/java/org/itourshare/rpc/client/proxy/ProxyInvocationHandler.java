@@ -5,7 +5,7 @@ import java.lang.reflect.Method;
 
 /**
  * @ClassName : ProxyInvocationHandler
- * @Description :
+ * @Description : 代理类，在invoke方法中执行远程调用。
  * @Author : its
  * @Date: 2020-08-19 19:27
  */
