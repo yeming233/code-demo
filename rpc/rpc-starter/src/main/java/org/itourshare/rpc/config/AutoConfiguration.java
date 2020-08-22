@@ -1,5 +1,7 @@
 package org.itourshare.rpc.config;
 
+import org.itourshare.rpc.client.discovery.ServiceDiscovery;
+import org.itourshare.rpc.client.discovery.ZkServiceDiscovery;
 import org.itourshare.rpc.client.proxy.ProxyFactory;
 import org.itourshare.rpc.properties.RpcProperty;
 import org.itourshare.rpc.server.register.DefaultRpcProcessor;
@@ -22,7 +24,7 @@ public class AutoConfiguration {
     private RpcProperty rpcProperty;
 
     @Bean
-    public RpcProperty rpcProperty(){
+    public RpcProperty rpcProperty() {
         return new RpcProperty();
     }
 
@@ -33,7 +35,7 @@ public class AutoConfiguration {
 
     @Bean
     public ProxyFactory proxyFactory() {
-        ProxyFactory proxyFactory = new ProxyFactory();
+        ProxyFactory proxyFactory = new ProxyFactory(serviceDiscovery());
         return proxyFactory;
     }
 
@@ -42,4 +44,8 @@ public class AutoConfiguration {
         return new ZkServiceRegister(rpcProperty.getAddress(), rpcProperty.getServerPort(), rpcProperty.getProtocol());
     }
 
+    @Bean
+    public ServiceDiscovery serviceDiscovery() {
+        return new ZkServiceDiscovery(rpcProperty.getAddress());
+    }
 }

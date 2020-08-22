@@ -45,4 +45,13 @@ public class Service {
     public void setAddress(String address) {
         this.address = address;
     }
+
+    @Override
+    public String toString() {
+        return "Service{" +
+                "name='" + name + '\'' +
+                ", protocol='" + protocol + '\'' +
+                ", address='" + address + '\'' +
+                '}';
+    }
 }

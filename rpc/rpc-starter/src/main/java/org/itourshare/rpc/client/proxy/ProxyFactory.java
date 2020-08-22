@@ -1,5 +1,7 @@
 package org.itourshare.rpc.client.proxy;
 
+import org.itourshare.rpc.client.discovery.ServiceDiscovery;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -15,6 +17,12 @@ public class ProxyFactory {
 
     private Map<Class<?>, Object> proxyCaChe = new HashMap<>();
 
+    private ServiceDiscovery serviceDiscovery;
+
+    public ProxyFactory(ServiceDiscovery serviceDiscovery) {
+        this.serviceDiscovery = serviceDiscovery;
+    }
+
     /***
      * @Param [clazz] 被代理类
      * @description 通过JAVA动态代理获取代理类
@@ -24,7 +32,7 @@ public class ProxyFactory {
      * @throws
      */
     public <T> T getProxy(Class<T> clazz) {
-        return (T) proxyCaChe.computeIfAbsent(clazz, cla -> newProxyInstance(cla.getClassLoader(), new Class<?>[]{cla}, new ProxyInvocationHandler(cla)));
+        return (T) proxyCaChe.computeIfAbsent(clazz, cla -> newProxyInstance(cla.getClassLoader(), new Class<?>[]{cla}, new ProxyInvocationHandler(cla,serviceDiscovery)));
     }
 
 }
