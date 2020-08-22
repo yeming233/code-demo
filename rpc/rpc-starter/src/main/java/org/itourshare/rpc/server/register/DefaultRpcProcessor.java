@@ -64,7 +64,7 @@ public class DefaultRpcProcessor implements ApplicationListener<ContextRefreshed
                     }
                 } else {
                     Class<?> superClass = interfaces[0];
-                    serviceObject = new ServiceObject(superClass.getName(), superClass, object);
+                    serviceObject = new ServiceObject(superClass.getSimpleName(), superClass, object);
                 }
                 // 服务注册
                 try {
