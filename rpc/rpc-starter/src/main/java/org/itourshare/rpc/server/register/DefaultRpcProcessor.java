@@ -3,6 +3,7 @@ package org.itourshare.rpc.server.register;
 import org.itourshare.rpc.annotation.ProxyService;
 import org.itourshare.rpc.annotation.RpcService;
 import org.itourshare.rpc.client.proxy.ProxyFactory;
+import org.itourshare.rpc.server.nettyserver.RpcServer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,9 @@ public class DefaultRpcProcessor implements ApplicationListener<ContextRefreshed
 
     @Autowired
     private ServiceRegister serviceRegister;
+
+    @Autowired
+    private RpcServer rpcServer;
 
     @Override
     public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent) {
@@ -74,7 +78,7 @@ public class DefaultRpcProcessor implements ApplicationListener<ContextRefreshed
                 }
             }
             // start netty server
-
+            rpcServer.start();
         }
     }
 

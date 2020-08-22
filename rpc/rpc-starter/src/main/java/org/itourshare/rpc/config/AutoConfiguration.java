@@ -4,6 +4,10 @@ import org.itourshare.rpc.client.discovery.ServiceDiscovery;
 import org.itourshare.rpc.client.discovery.ZkServiceDiscovery;
 import org.itourshare.rpc.client.proxy.ProxyFactory;
 import org.itourshare.rpc.properties.RpcProperty;
+import org.itourshare.rpc.server.nettyserver.NettyRpcServer;
+import org.itourshare.rpc.server.nettyserver.RequestHandler;
+import org.itourshare.rpc.server.nettyserver.RpcHandler;
+import org.itourshare.rpc.server.nettyserver.RpcServer;
 import org.itourshare.rpc.server.register.DefaultRpcProcessor;
 import org.itourshare.rpc.server.register.ServiceRegister;
 import org.itourshare.rpc.server.register.ZkServiceRegister;
@@ -47,5 +51,20 @@ public class AutoConfiguration {
     @Bean
     public ServiceDiscovery serviceDiscovery() {
         return new ZkServiceDiscovery(rpcProperty.getAddress());
+    }
+
+    @Bean
+    public RpcServer rpcServer() {
+        return new NettyRpcServer(rpcProperty.getServerPort(), rpcHandler());
+    }
+
+    @Bean
+    public RpcHandler rpcHandler() {
+        return new RpcHandler();
+    }
+
+    @Bean
+    public RequestHandler requestHandler() {
+        return new RequestHandler(serviceRegister());
     }
 }
