@@ -2,10 +2,14 @@ package org.itourshare.rpc.config;
 
 import org.itourshare.rpc.client.discovery.ServiceDiscovery;
 import org.itourshare.rpc.client.discovery.ZkServiceDiscovery;
+import org.itourshare.rpc.client.nettyclient.NettyRpcClient;
+import org.itourshare.rpc.client.nettyclient.RequestHandler;
+import org.itourshare.rpc.client.nettyclient.RpcClient;
 import org.itourshare.rpc.client.proxy.ProxyFactory;
 import org.itourshare.rpc.properties.RpcProperty;
+import org.itourshare.rpc.protocol.Service;
 import org.itourshare.rpc.server.nettyserver.NettyRpcServer;
-import org.itourshare.rpc.server.nettyserver.RequestHandler;
+import org.itourshare.rpc.server.nettyserver.ResponseHandler;
 import org.itourshare.rpc.server.nettyserver.RpcHandler;
 import org.itourshare.rpc.server.nettyserver.RpcServer;
 import org.itourshare.rpc.server.register.DefaultRpcProcessor;
@@ -39,7 +43,7 @@ public class AutoConfiguration {
 
     @Bean
     public ProxyFactory proxyFactory() {
-        ProxyFactory proxyFactory = new ProxyFactory(serviceDiscovery());
+        ProxyFactory proxyFactory = new ProxyFactory(serviceDiscovery(), new NettyRpcClient());
         return proxyFactory;
     }
 
@@ -64,7 +68,7 @@ public class AutoConfiguration {
     }
 
     @Bean
-    public RequestHandler requestHandler() {
-        return new RequestHandler(serviceRegister());
+    public ResponseHandler responseHandler() {
+        return new ResponseHandler(serviceRegister());
     }
 }

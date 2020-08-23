@@ -58,11 +58,11 @@ public class NettyRpcServer extends RpcServer {
                     pipeline.addLast(rpcHandler);
                 }
             });
-            logger.info("CGW Server start up ! bind port={}", port);
+            logger.info("netty Server start up ! bind port={}", port);
             ChannelFuture f = serverBootstrap.bind(port).sync();
             f.channel().closeFuture().sync();
         } catch (Exception ex) {
-            logger.error("CGW server start exception:", ex);
+            logger.error("netty server start exception:", ex);
         } finally {
             //释放线程池资源
             bossGroup.shutdownGracefully();

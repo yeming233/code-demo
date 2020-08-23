@@ -1,6 +1,8 @@
 package org.itourshare.rpc.client.proxy;
 
 import org.itourshare.rpc.client.discovery.ServiceDiscovery;
+import org.itourshare.rpc.client.nettyclient.RpcClient;
+import org.itourshare.rpc.client.nettyclient.RpcRequest;
 import org.itourshare.rpc.protocol.Service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,12 +25,15 @@ public class ProxyInvocationHandler implements InvocationHandler {
 
     private ServiceDiscovery serviceDiscovery;
 
+    private RpcClient rpcClient;
+
     private Class<?> clazz;
 
-    public ProxyInvocationHandler(Class<?> clazz, ServiceDiscovery serviceDiscovery) {
+    public ProxyInvocationHandler(Class<?> clazz, ServiceDiscovery serviceDiscovery, RpcClient rpcClient) {
         super();
         this.clazz = clazz;
         this.serviceDiscovery = serviceDiscovery;
+        this.rpcClient = rpcClient;
     }
 
     @Override
@@ -40,6 +45,16 @@ public class ProxyInvocationHandler implements InvocationHandler {
         }
         Service service = services.get(new Random().nextInt(services.size()));
         logger.info("available service for {}->{}", clazz.getSimpleName(), service.toString());
+
+        RpcRequest req = new RpcRequest();
+        req.setServiceName(service.getName());
+        req.setMethod(method.getName());
+        req.setParameterTypes(method.getParameterTypes());
+        req.setParameters(args);
+
+        service.setAddress("192.168.0.114:19999");
+        rpcClient.send(req, service);
+
         return null;
     }
 }

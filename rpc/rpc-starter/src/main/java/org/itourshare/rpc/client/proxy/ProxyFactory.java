@@ -1,6 +1,7 @@
 package org.itourshare.rpc.client.proxy;
 
 import org.itourshare.rpc.client.discovery.ServiceDiscovery;
+import org.itourshare.rpc.client.nettyclient.RpcClient;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -19,8 +20,11 @@ public class ProxyFactory {
 
     private ServiceDiscovery serviceDiscovery;
 
-    public ProxyFactory(ServiceDiscovery serviceDiscovery) {
+    private RpcClient rpcClient;
+
+    public ProxyFactory(ServiceDiscovery serviceDiscovery,RpcClient rpcClient) {
         this.serviceDiscovery = serviceDiscovery;
+        this.rpcClient = rpcClient;
     }
 
     /***
@@ -32,7 +36,7 @@ public class ProxyFactory {
      * @throws
      */
     public <T> T getProxy(Class<T> clazz) {
-        return (T) proxyCaChe.computeIfAbsent(clazz, cla -> newProxyInstance(cla.getClassLoader(), new Class<?>[]{cla}, new ProxyInvocationHandler(cla,serviceDiscovery)));
+        return (T) proxyCaChe.computeIfAbsent(clazz, cla -> newProxyInstance(cla.getClassLoader(), new Class<?>[]{cla}, new ProxyInvocationHandler(cla,serviceDiscovery,rpcClient)));
     }
 
 }
