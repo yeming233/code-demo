@@ -21,7 +21,7 @@ public class NettyRpcClient implements RpcClient {
     }
 
     @Override
-    public void send(RpcRequest rpcRequest, Service service) throws Exception {
+    public byte[] send(RpcRequest rpcRequest, Service service) throws Exception {
 
         EventLoopGroup bossGroup = new NioEventLoopGroup();
         requestHandler = new RequestHandler();
@@ -44,5 +44,7 @@ public class NettyRpcClient implements RpcClient {
         // 客户端开启
         ChannelFuture cf = bs.connect(address[0], Integer.parseInt(address[1])).sync();
         cf.channel().writeAndFlush(rpcRequest);
+        byte[] resp = requestHandler.getResp();
+        return resp;
     }
 }

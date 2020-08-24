@@ -27,4 +27,9 @@ public class DefaultServiceRegister implements ServiceRegister {
         }
         serviceCache.put(serviceObject.getName(), serviceObject);
     }
+
+    @Override
+    public ServiceObject getService(String serviceName) throws Exception {
+        return serviceCache.get(serviceName);
+    }
 }

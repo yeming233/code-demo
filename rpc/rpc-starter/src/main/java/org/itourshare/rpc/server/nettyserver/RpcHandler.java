@@ -34,8 +34,8 @@ public class RpcHandler extends SimpleChannelInboundHandler {
         buf.readBytes(bytes);
         RpcRequest rpcRequest = JSON.parseObject(bytes, RpcRequest.class);
         logger.info("server receive parse message ==>> [{}]", rpcRequest.toString());
-        requestHandler.handle(rpcRequest);
-        channelHandlerContext.writeAndFlush(Unpooled.copiedBuffer("1".getBytes()));
+        byte[] resp = requestHandler.handle(rpcRequest);
+        channelHandlerContext.writeAndFlush(Unpooled.copiedBuffer(resp));
     }
 
     @Override

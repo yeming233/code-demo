@@ -16,10 +16,10 @@ import org.itourshare.rpc.annotation.RpcService;
 public class UserServiceImpl implements UserService {
 
     @Override
-    public User getUser(Long id) {
+    public User getUser(Integer id) {
         log.info("rpc provider param [{}]", id);
         User user = new User();
-        user.setId(123L);
+        user.setId(123);
         user.setName("中文");
         return user;
     }

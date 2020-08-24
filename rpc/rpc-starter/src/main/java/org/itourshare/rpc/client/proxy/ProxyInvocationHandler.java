@@ -1,9 +1,11 @@
 package org.itourshare.rpc.client.proxy;
 
+import com.alibaba.fastjson.JSON;
 import org.itourshare.rpc.client.discovery.ServiceDiscovery;
 import org.itourshare.rpc.client.nettyclient.RpcClient;
 import org.itourshare.rpc.client.nettyclient.RpcRequest;
 import org.itourshare.rpc.protocol.Service;
+import org.itourshare.rpc.server.nettyserver.RpcResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -52,9 +54,15 @@ public class ProxyInvocationHandler implements InvocationHandler {
         req.setParameterTypes(method.getParameterTypes());
         req.setParameters(args);
 
-        service.setAddress("192.168.0.114:19999");
-        rpcClient.send(req, service);
-
-        return null;
+//        service.setAddress("192.168.0.114:19999");
+        byte[] resp = rpcClient.send(req, service);
+        logger.info("response [{}]", resp);
+        RpcResponse rpcResponse = JSON.parseObject(resp, RpcResponse.class);
+        Object o = null;
+        logger.info("response [{}]", rpcResponse.getResult());
+        if (null != rpcResponse.getResult()) {
+            o = JSON.parseObject(rpcResponse.getResult().toString(), method.getReturnType());
+        }
+        return o;
     }
 }

@@ -19,8 +19,8 @@ public class UserController {
     private UserService userService;
 
     @RequestMapping("/info")
-    private User getUser() {
-        return userService.getUser(12L);
+    private User getUser(Integer id) {
+        return userService.getUser(id);
     }
 
 }

@@ -1,22 +1,24 @@
 package org.itourshare.api.entity;
 
+import java.io.Serializable;
+
 /**
  * @ClassName : User
  * @Description :
  * @Author : its
  * @Date: 2020-08-19 16:16
  */
-public class User {
+public class User implements Serializable {
 
-    private Long id;
+    private Integer id;
 
     private String name;
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

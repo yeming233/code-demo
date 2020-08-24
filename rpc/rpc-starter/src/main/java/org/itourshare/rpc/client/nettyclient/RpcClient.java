@@ -4,6 +4,6 @@ import org.itourshare.rpc.protocol.Service;
 
 public interface RpcClient {
 
-    public void send(RpcRequest rpcRequest, Service service) throws Exception;
+    public byte[] send(RpcRequest rpcRequest, Service service) throws Exception;
 
 }

@@ -1,7 +1,11 @@
 package org.itourshare.rpc.server.nettyserver;
 
+import com.alibaba.fastjson.JSON;
 import org.itourshare.rpc.client.nettyclient.RpcRequest;
+import org.itourshare.rpc.server.register.ServiceObject;
 import org.itourshare.rpc.server.register.ServiceRegister;
+
+import java.lang.reflect.Method;
 
 /**
  * @ClassName : RequestHandler
@@ -17,8 +21,16 @@ public class ResponseHandler {
         this.serviceRegister = serviceRegister;
     }
 
-    public byte[] handle(RpcRequest rpcRequest){
-        return null;
+    public byte[] handle(RpcRequest rpcRequest) throws Exception{
+        ServiceObject service = serviceRegister.getService(rpcRequest.getServiceName());
+        if(null == service){
+            throw new RuntimeException("service not found");
+        }
+        Method method = service.getClazz().getMethod(rpcRequest.getMethod(), rpcRequest.getParameterTypes());
+        Object invoke = method.invoke(service.getObject(), rpcRequest.getParameters());
+        RpcResponse response = new RpcResponse();
+        response.setResult(invoke);
+        return JSON.toJSONBytes(response);
     }
 
 }

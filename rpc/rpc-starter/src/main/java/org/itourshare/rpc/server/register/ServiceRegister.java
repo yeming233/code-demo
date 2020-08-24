@@ -13,4 +13,5 @@ public interface ServiceRegister {
      */
     void register(ServiceObject serviceObject) throws Exception;
 
+    ServiceObject getService(String serviceName) throws Exception;
 }

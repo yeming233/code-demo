@@ -4,6 +4,6 @@ import org.itourshare.api.entity.User;
 
 public interface UserService {
 
-    User getUser(Long id);
+    User getUser(Integer id);
 
 }
