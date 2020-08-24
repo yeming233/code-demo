@@ -36,10 +36,10 @@ public class AutoConfiguration {
         return new RpcProperty();
     }
 
-    @Bean
-    public DefaultRpcProcessor defaultRpcProcessor() {
-        return new DefaultRpcProcessor();
-    }
+//    @Bean
+//    public DefaultRpcProcessor defaultRpcProcessor() {
+//        return new DefaultRpcProcessor();
+//    }
 
     @Bean
     public ProxyFactory proxyFactory() {
