@@ -11,6 +11,7 @@
     <description>demo</description>
     <modules>
         <module>rpc</module>
+        <module>test</module>
     </modules>
 
     <properties>

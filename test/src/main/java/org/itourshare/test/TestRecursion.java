@@ -1,12 +1,14 @@
+package org.itourshare.test;
+
 import java.io.File;
 
 /**
- * @ClassName : ListFile
- * @Description :
+ * @ClassName : TestRecursion
+ * @Description : 递归
  * @Author : its
  * @Date: 2020-08-24 16:16
  */
-public class ListFile {
+public class TestRecursion {
 
     public static void main(String[] args) {
         File file = new File("D:\\home");
