@@ -15,7 +15,7 @@ public class TestLock {
 
     public static final ExecutorService EXECUTOR_SERVICE = Executors.newFixedThreadPool(10);
 
-    volatile static int num = 0;
+    static int num = 0;
 
     static Object object = new Object();
 
