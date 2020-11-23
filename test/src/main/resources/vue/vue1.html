@@ -29,5 +29,30 @@
             message: '页面加载于 ' + new Date().toLocaleString()
         }
     })
+    let promise = new Promise(function(resolve, reject) {
+        console.log('Promise');
+        resolve();
+    });
+
+    promise.then(function() {
+        console.log('resolved.');
+    });
+
+    console.log('Hi!');
+
+    function runAsync(){
+        var p = new Promise(function(resolve, reject){
+            //做一些异步操作
+            setTimeout(function(){
+                console.log('执行完成');
+                resolve('随便什么数据');
+            }, 2000);
+        });
+        return p;
+    }
+    runAsync().then(function (data) {
+        console.log("result=" + data)
+    });
+
 </script>
 </html>

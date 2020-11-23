@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <!--   组件化应用构建 -->
+</head>
+<body>
+<div id="app6">
+    <input>
+    <input v-focus>
+</div>
+</body>
+<script>
+    // 注册一个全局自定义指令 `v-focus`
+    Vue.directive('focus', {
+        // 当被绑定的元素插入到 DOM 中时……
+        inserted: function (el) {
+            // 聚焦元素
+            el.focus()
+            console.log("focus...")
+        },
+        bind: function (el) {
+            // 聚焦元素
+            console.log("bind...")
+        }
+    })
+    new Vue({
+        el: '#app6'
+    })
+</script>
+</html>
